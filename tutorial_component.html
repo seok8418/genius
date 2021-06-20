@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #demo {
+            font-family: 'Helvetica', Arial, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #f66;
+        }
+
+        li {
+            line-height: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .author,
+        .date {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <h1>Latest Vue.js Commits</h1>
+        <template v-for="branch in branches">
+            <!-- 리스트 렌더링 -->
+            <input type="radio" :id="branch" :value="branch" name="branch" v-model="currentBranch">
+            <!-- v-model: 양방향 바인딩-->
+            <label :for="branch">{{ branch }}</label> <!-- 문자열 보간법 -->
+        </template>
+        <p>vuejs/vue@{{ currentBranch }} {{ computedCommits }} {{ commitsCount() }}</p> <!-- 문자열 보간법 -->
+        <ul>
+            <li v-for="record in commits">
+                <!-- 리스트 렌더링 -->
+                <a :href="record.html_url" target="_blank" class="commit">{{ record.sha.slice(0, 7) }}</a>
+                - <span class="message">{{ record.commit.message | truncate }}</span><br>
+                by <span class="author"><a :href="record.author.html_url" target="_blank">{{ record.commit.author.name
+                        }}</a></span>
+                at <span class="date">{{ record.commit.author.date | formatDate }}</span>
+            </li>
+        </ul>
+        <!-- <button-counter @splice="commits.splice($event)"></button-counter>
+        <button-counter @splice=splice></button-counter>
+        <button-counter></button-counter> --> 
+        <!-- <bt-comp branch='3'></bt-comp>
+        <bt-comp :branch=commits.length></bt-comp>
+        <bt-comp branch=commits.length></bt-comp> -->
+    </div>
+</body>
+<script>
+    var apiURL = 'https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha='
+
+    /**
+     * Actual demo
+     */
+    // Vue.component('button-counter', { // 글로벌 컴포넌트 등록
+    //     data: function () {
+    //         return {
+    //             count: 0
+    //         }
+    //     },
+    //     methods: {
+    //         increase: function() {
+    //             this.$emit('splice', 1) // 인자와 함께 이벤트 전달
+    //         }
+
+    //     },
+    //     template: '<div><button v-on:click=increase> Increase # of commits.</button><p>Global</p></div>'
+    // })
+
+    // var buttonComponent = { // 로컬 컴포넌트 등록을 위한 선언
+    //     data: function () {
+    //         return {
+    //             count: 0
+    //         }
+    //     },
+    //     props: ['branch'], // 상위 컴포넌트로부터 받은 데이터
+
+    //     template: '<div><button v-on:click="count++">You clicked me {{ count }} times.</button><p>Local {{ branch }}</p></div>'
+    // }
+
+    var demo = new Vue({
+
+        el: '#demo', // demo 영역에 대한 Vue instance
+        // components: {
+        //     'bt-comp': buttonComponent // 로컬 컴포넌트를 bt-comp라는 이름으로 등록
+        // },
+        data: { // data 영역. 일종의 property
+            branches: ['master', 'dev'],
+            currentBranch: 'master',
+            commits: [],
+            msg: "Wow!"
+        },
+
+        created: function () { // lifecycle hook 중 created()
+            console.log("Vue instance created")
+            this.fetchData()
+        },
+
+        computed: { // 계산된 속성. 의존 데이터인 branches.length가 변경되어야 호출됨
+            computedCommits() {
+                console.log('computed')
+                return this.branches.length
+            }
+        },
+
+        watch: { // watcher: 특정 property의 변경 감시자
+            currentBranch: 'fetchData' // currentBranch가 변경되면 fetchData()가 수행됨
+        },
+
+        filters: { // filter
+            truncate: function (v) {
+                var newline = v.indexOf('\n')
+                return newline > 0 ? v.slice(0, newline) : v
+            },
+            formatDate: function (v) {
+                return v.replace(/T|Z/g, ' ')
+            }
+        },
+
+        methods: { // method
+            fetchData: function () { // AJAX 콜을 통한 비동기 데이터 획득
+                var xhr = new XMLHttpRequest()
+                var self = this
+                xhr.open('GET', apiURL + self.currentBranch)
+                xhr.onload = function () {
+                    self.commits = JSON.parse(xhr.responseText) // Vue instance의 commits에 데이터 갱신
+                    console.log(self.commits[0].html_url)
+                }
+                xhr.send()
+            },
+            splice(data){
+                console.log(data)
+            }
+            , commitsCount() { // branches.length를 리턴하기 위한 메소드. 화면 갱신시마다 호출됨.
+                console.log('method');
+                return this.branches.length
+            }
+        }
+    })
+
+
+</script>
+
+</html>
