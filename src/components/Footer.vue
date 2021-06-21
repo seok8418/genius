@@ -1,15 +1,16 @@
 <template>
   <div class="clearAllContainer">
-    <span class="clearAllBtn" @click="clearTodo">Clear All</span>
+    <span class="clearAllBtn" @click="clearTodo">Button</span>
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    clearTodo() {
-      //this.$store.commit('clearAll');
-      //this.$store.dispatch('clearAll',5000);
+    clearTodo () {
+      console.log('test')
+      // this.$store.commit('clearAll');
+      // this.$store.dispatch('clearAll',5000);
     }
   }
 }

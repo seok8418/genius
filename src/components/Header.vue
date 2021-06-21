@@ -1,6 +1,6 @@
 <template>
   <header>
-	<img src="@/assets/ginus_logo.jpg" height="50" width="90">
+  <img src="@/assets/ginus_logo.jpg" height="50" width="90">
     <h1>The genius</h1>
   </header>
 </template>

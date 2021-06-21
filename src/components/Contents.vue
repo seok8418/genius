@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-	<GH_Game></GH_Game>
+    <GHGame></GHGame>
     <Footer></Footer>
   </div>
 </template>
@@ -9,13 +9,13 @@
 <script>
 import Header from './Header.vue'
 import Footer from './Footer.vue'
-import GH_Game from './GH_Game.vue'
+import GHGame from './GHGame.vue'
 
-export default {  
+export default {
   components: {
-    'Header':Header,
+    'Header': Header,
     'Footer': Footer,
-	'GH_Game': GH_Game
+    'GHGame': GHGame
   }
 }
 </script>
