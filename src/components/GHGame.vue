@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>aasdasdsad</h1>
+    <h1>{{plateColor1}} {{plateColor2}}</h1>
     <span class="Container" v-on:click="init">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
@@ -11,7 +11,7 @@
         <div class="number">
           <b>1</b>
         </div>
-      <div id='plate1' v-bind:style="plate_style" v-on:click="nothing">
+      <div id='plate1' v-bind:class="plateColor1" v-on:click="nothing">
           <div class="gray_square" />
         </div>
       </td>
@@ -19,7 +19,7 @@
         <div class="number">
           <b>2</b>
         </div>
-        <div id='plate2' class="white_plate" v-on:click="nothing">
+        <div id='plate2' v-bind:class="plateColor2" v-on:click="nothing">
           <div class="gray_circle" />
         </div>
       </td>
@@ -27,7 +27,7 @@
         <div class="number">
           <b>3</b>
         </div>
-        <div id='plate3' class="black_plate" v-on:click="nothing">
+        <div id='plate3' v-bind:class="plateColor3" v-on:click="nothing">
           <div class="gray_triangle" />
         </div>
       </td>
@@ -37,7 +37,7 @@
         <div class="number">
           <b>4</b>
         </div>
-        <div id='plate4' class="black_plate" v-on:click="nothing">
+        <div id='plate4' v-bind:class="plateColor4" v-on:click="nothing">
           <div class="gray_square" />
         </div>
       </td>
@@ -45,7 +45,7 @@
         <div class="number">
           <b>5</b>
         </div>
-        <div id='plate5' class="white_plate" v-on:click="nothing">
+        <div id='plate5' v-bind:class="plateColor5" v-on:click="nothing">
           <div class="gray_circle" />
         </div>
       </td>
@@ -53,7 +53,7 @@
         <div class="number">
           <b>6</b>
         </div>
-        <div id='plate6' class="black_plate" v-on:click="nothing">
+        <div id='plate6' v-bind:class="plateColor6" v-on:click="nothing">
           <div class="gray_triangle" />
         </div>
       </td>
@@ -63,7 +63,7 @@
         <div class="number">
           <b>7</b>
         </div>
-        <div id='plate7' class="black_plate" v-on:click="nothing">
+        <div id='plate7' v-bind:class="plateColor7" v-on:click="nothing">
           <div class="gray_square" />
         </div>
       </td>
@@ -71,7 +71,7 @@
         <div class="number">
           <b>8</b>
         </div>
-        <div id='plate8' class="white_plate" v-on:click="nothing">
+        <div id='plate8' v-bind:class="plateColor8" v-on:click="nothing">
           <div class="gray_circle" />
         </div>
       </td>
@@ -79,7 +79,7 @@
         <div class="number">
           <b>9</b>
         </div>
-        <div id='plate9' class="black_plate" v-on:click="nothing">
+        <div id='plate9' v-bind:class="plateColor9" v-on:click="nothing">
           <div class="gray_triangle" />
         </div>
       </td>
@@ -93,29 +93,35 @@ export default {
   data () {
     return {
       plate: [],
-      plate_style: []
+      plate_style: [],
+      plateColor1: 'black_plate',
+      plateColor2: 'black_plate',
+      plateColor3: 'black_plate',
+      plateColor4: 'black_plate',
+      plateColor5: 'black_plate',
+      plateColor6: 'black_plate',
+      plateColor7: 'black_plate',
+      plateColor8: 'black_plate',
+      plateColor9: 'black_plate'
     }
   },
   created () {
-    // init();
-  },
-  computed: {
-    temp: function () {
-      return {
-        black_plate: true
-      }
-    }
+    this.init()
   },
   methods: {
     init () {
-      this.createPlate()
-      for (let i = 0; i < 9; i++) {
-        this.plate_style[i] = this.objectPlateStyle(this.plate[i][0])
-        console.log('this.plate_style[' + i + ']')
-        console.log(this.plate_style[i])
-      }
+      this.setPlateColor()
+      this.plateColor1 = this.plate[0][0]
+      this.plateColor2 = this.plate[1][0]
+      this.plateColor3 = this.plate[2][0]
+      this.plateColor4 = this.plate[3][0]
+      this.plateColor5 = this.plate[4][0]
+      this.plateColor6 = this.plate[5][0]
+      this.plateColor7 = this.plate[6][0]
+      this.plateColor8 = this.plate[7][0]
+      this.plateColor9 = this.plate[8][0]
     },
-    createPlate () {
+    setPlateColor () {
       var backgroundColor = ['black_plate', 'gray_plate', 'white_plate']
       var shapeColor = ['black_', 'gray_', 'white_']
       var shape = ['circle', 'triangle', 'square']
@@ -132,50 +138,9 @@ export default {
         // console.log("this.plate   " + this.plate[i])
       }
     },
-    objectPlateStyle (style) {
-      return {
-        width: '10rem',
-        height: '10rem',
-        background: style
-      }
-    },
-    rename (backgroundColor, shapeColor, shape) {
-      switch (backgroundColor) {
-        case '0':
-          backgroundColor = 'black_plate'
-          break
-        case '1':
-          backgroundColor = 'gray_plate'
-          break
-        case '2':
-          backgroundColor = 'white_plate'
-          break
-      }
-      switch (shapeColor) {
-        case '0':
-          backgroundColor = 'black_'
-          break
-        case '1':
-          backgroundColor = 'gray_'
-          break
-        case '2':
-          backgroundColor = 'white_'
-          break
-      }
-      switch (shape) {
-        case '0':
-          backgroundColor = 'square'
-          break
-        case '1':
-          backgroundColor = 'circle'
-          break
-        case '2':
-          backgroundColor = 'triangle'
-          break
-      }
-    },
     nothing () {
-      console.log('nothing')
+      this.plateColor1 = 'black_plate'
+      console.log(this.plateColor1)
     }
   }
 }
