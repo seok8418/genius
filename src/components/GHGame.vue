@@ -5,84 +5,89 @@
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
     <span v-bind:style="{fontSize: 30 + 'px', color: 'red'}" v-on:click="gyeolCheck">
-      결 버튼
+      결! 버튼
     </span>
     <div>
-      <table>
+      <div class="answerTable">
+        <div class="answer"  v-for="(array, index) in correctAnswerList" :key="index">
+              {{ array[0] + 1 }}   {{ array[1] + 1}}   {{ array[2] + 1 }}
+        </div>
+      </div>
+      <table class="plateTable">
       <tr>
-        <td v-on:click="select(0)">
+        <td>
           <div class="number">
             <b>1</b>
           </div>
-          <div id='plate1' v-bind:class="[plateColor1, { selectedPlate: selectedPlate1, notSelectedPlate: !selectedPlate1 }]" v-on:click="selectedPlate1 = !selectedPlate1">
+          <div id='plate1' v-bind:class="[plateColor1, { selectedPlate: selectedPlate1, notSelectedPlate: !selectedPlate1 }]" v-on:click="[selectedPlate1 = !selectedPlate1, select(0)]">
             <div v-bind:class="shape1" />
           </div>
         </td>
-        <td v-on:click="select(1)">
+        <td>
           <div class="number">
             <b>2</b>
           </div>
-          <div id='plate2' v-bind:class="[plateColor2, { selectedPlate: selectedPlate2, notSelectedPlate: !selectedPlate2 }]" v-on:click="selectedPlate2 = !selectedPlate2">
+          <div id='plate2' v-bind:class="[plateColor2, { selectedPlate: selectedPlate2, notSelectedPlate: !selectedPlate2 }]" v-on:click="[selectedPlate2 = !selectedPlate2, select(1)]">
             <div v-bind:class="shape2" />
           </div>
         </td>
-        <td v-on:click="select(2)">
+        <td>
           <div class="number">
             <b>3</b>
           </div>
-          <div id='plate3' v-bind:class="[plateColor3, { selectedPlate: selectedPlate3, notSelectedPlate: !selectedPlate3 }]" v-on:click="selectedPlate3 = !selectedPlate3">
+          <div id='plate3' v-bind:class="[plateColor3, { selectedPlate: selectedPlate3, notSelectedPlate: !selectedPlate3 }]" v-on:click="[selectedPlate3 = !selectedPlate3, select(2)]">
             <div v-bind:class="shape3" />
           </div>
         </td>
       </tr>
       <tr>
-        <td v-on:click="select(3)">
+        <td>
           <div class="number">
             <b>4</b>
           </div>
-          <div id='plate4' v-bind:class="[plateColor4, { selectedPlate: selectedPlate4, notSelectedPlate: !selectedPlate4 }]" v-on:click="selectedPlate4 = !selectedPlate4">
+          <div id='plate4' v-bind:class="[plateColor4, { selectedPlate: selectedPlate4, notSelectedPlate: !selectedPlate4 }]" v-on:click="[selectedPlate4 = !selectedPlate4, select(3)]">
             <div v-bind:class="shape4" />
           </div>
         </td>
-        <td v-on:click="select(4)">
+        <td>
           <div class="number">
             <b>5</b>
           </div>
-          <div id='plate5' v-bind:class="[plateColor5, { selectedPlate: selectedPlate5, notSelectedPlate: !selectedPlate5 }]" v-on:click="selectedPlate5 = !selectedPlate5">
+          <div id='plate5' v-bind:class="[plateColor5, { selectedPlate: selectedPlate5, notSelectedPlate: !selectedPlate5 }]" v-on:click="[selectedPlate5 = !selectedPlate5, select(4)]">
             <div v-bind:class="shape5" />
           </div>
         </td>
-        <td v-on:click="select(5)">
+        <td>
           <div class="number">
             <b>6</b>
           </div>
-          <div id='plate6' v-bind:class="[plateColor6, { selectedPlate: selectedPlate6, notSelectedPlate: !selectedPlate6 }]" v-on:click="selectedPlate6 = !selectedPlate6">
+          <div id='plate6' v-bind:class="[plateColor6, { selectedPlate: selectedPlate6, notSelectedPlate: !selectedPlate6 }]" v-on:click="[selectedPlate6 = !selectedPlate6, select(5)]">
             <div v-bind:class="shape6" />
           </div>
         </td>
       </tr>
       <tr>
-        <td v-on:click="select(6)">
+        <td>
           <div class="number">
             <b>7</b>
           </div>
-          <div id='plate7' v-bind:class="[plateColor7, { selectedPlate: selectedPlate7, notSelectedPlate: !selectedPlate7 }]" v-on:click="selectedPlate7 = !selectedPlate7">
+          <div id='plate7' v-bind:class="[plateColor7, { selectedPlate: selectedPlate7, notSelectedPlate: !selectedPlate7 }]" v-on:click="[selectedPlate7 = !selectedPlate7, select(6)]">
             <div v-bind:class="shape7" />
           </div>
         </td>
-        <td v-on:click="select(7)">
+        <td>
           <div class="number">
             <b>8</b>
           </div>
-          <div id='plate8' v-bind:class="[plateColor8, { selectedPlate: selectedPlate8, notSelectedPlate: !selectedPlate8 }]" v-on:click="selectedPlate8 = !selectedPlate8">
+          <div id='plate8' v-bind:class="[plateColor8, { selectedPlate: selectedPlate8, notSelectedPlate: !selectedPlate8 }]" v-on:click="[selectedPlate8 = !selectedPlate8, select(7)]">
             <div v-bind:class="shape8" />
           </div>
         </td>
-        <td v-on:click="select(8)">
+        <td>
           <div class="number">
             <b>9</b>
           </div>
-          <div id='plate9' v-bind:class="[plateColor9, { selectedPlate: selectedPlate9, notSelectedPlate: !selectedPlate9 }]" v-on:click="selectedPlate9 = !selectedPlate9">
+          <div id='plate9' v-bind:class="[plateColor9, { selectedPlate: selectedPlate9, notSelectedPlate: !selectedPlate9 }]" v-on:click="[selectedPlate9 = !selectedPlate9, select(8)]">
             <div v-bind:class="shape9" />
           </div>
         </td>
@@ -254,7 +259,7 @@ export default {
       }
       this.selectedPlates.sort()
 
-      if (this.selectedPlates.length === 3) {
+      if (this.selectedPlates.length >= 3) {
         this.inputAnswer(this.selectedPlates[0], this.selectedPlates[1], this.selectedPlates[2])
         this.selectedPlates = []
         this.initSelectedPlate()
@@ -277,13 +282,27 @@ export default {
   color: white;
   vertical-align: middle;
 }
-table {
-  float: right;
+.plateTable {
   width: 30rem;
-  height: 30rem;
-  background: brown;
+  height: 41rem;
+  background: #4BAF4B;
+  margin-right: auto;
+}
+.answerTable{
+  float: left;
+  width: 10rem;
+  height: 41rem;
+  background: white;
+  border: 0.2rem solid black;
+  margin-right: auto;
+}
+.answer{
+  font-size: 2rem;
+  border-bottom: 0.15rem solid black;
 }
 b {
+  float: left;
+  background: white;
   color: black;
   font-size: 2rem;
 }
