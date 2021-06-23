@@ -1,7 +1,7 @@
 <template>
   <header>
   <img src="@/assets/ginus_logo.jpg" height="50" width="90">
-    <h1>The genius</h1>
+    <h1></h1>
   </header>
 </template>
 
@@ -14,6 +14,6 @@ export default {
   h1 {
     color: #2F3B52;
     font-weight: 900;
-    margin: 2.5rem 0 1.5rem;
+    margin: 0.5rem 0 0.5rem;
   }
 </style>
