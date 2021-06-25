@@ -4,10 +4,10 @@
     <span class="Container" v-on:click="inititializePlate">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
-    <span v-bind:style="{fontSize: 30 + 'px', color: 'red'}" v-on:click="gyeolCheck">
+    <span v-bind:style="{fontSize: 2 + 'rem', color: 'red', border: '0.2rem solid black'}" v-on:click="gyeolCheck">
       결! 버튼
     </span>
-    <div>
+    <div v-bind:style="{margin: 1 + 'rem'}">
       <div class="answerTable">
         <div class="answer"  v-for="(array, index) in correctAnswerList" :key="index">
               {{ array[0] + 1 }}   {{ array[1] + 1}}   {{ array[2] + 1 }}
@@ -94,6 +94,9 @@
       </tr>
       </table>
     </div>
+    <span v-bind:style="{fontSize: 2 + 'rem', border: '0.2rem solid black'}">
+      score: {{ myScore }}
+    </span>
   </div>
 </template>
 
@@ -105,6 +108,7 @@ export default {
       selectedPlates: [],
       answerList: [],
       correctAnswerList: [],
+      myScore: 0,
       plateColor1: 'black_plate',
       plateColor2: 'black_plate',
       plateColor3: 'black_plate',
@@ -197,6 +201,13 @@ export default {
         let num2 = Math.floor(Math.random() * 3)
         let num3 = Math.floor(Math.random() * 3)
         this.plate[i] = [backgroundColor[num1], shapeColor[num2], shape[num3]]
+        for (let j = 0; j < i; j++) {
+          if (JSON.stringify(this.plate[j]) === JSON.stringify(this.plate[i])) {
+            i--
+            // console.log('중복판 재생성')
+            break
+          }
+        }
       }
     },
     findAnswer () {
@@ -222,17 +233,20 @@ export default {
           for (let arr2 of this.correctAnswerList) {
             if (JSON.stringify(arr2) === JSON.stringify([i, j, k])) {
               console.log('중복 오답')
+              this.myScore--
               this.selectedPlates = []
               return false
             }
           }
           console.log('정답')
+          this.myScore++
           this.correctAnswerList.push(arr)
           this.selectedPlates = []
           return true
         }
       }
       console.log('오답')
+      this.myScore--
       this.selectedPlates = []
       return false
     },
@@ -240,8 +254,10 @@ export default {
       if (this.correctAnswerList.length === this.answerList.length) {
         this.inititializePlate()
         console.log('결 정답')
+        this.myScore += 3
       } else {
         console.log('결 오답')
+        this.myScore--
       }
     },
     select (plateNumber) {
